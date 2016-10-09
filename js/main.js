@@ -1,22 +1,40 @@
 // Player and dealer hands
-// var playerHand = [];
-// var dealerHand = [];
-
-
-//Starting the game
-//function startGame() {
-//    _.shuffle(deck);
-//    playerHand.push(draw,draw);
-//    dealerHand.push(draw,draw);
-// }
+var playerHand = [];
+var dealerHand = [];
 
 //TALLYING SCORE (add values in array at all times)
+
+function playerScore() {
+    var playerSum = 0;
+    for (var i = 0; i < playerHand.length; i++) {
+      playerSum += playerHand[i].value;
+    }
+      if (playerSum > 21) {
+      playerSum -= 10 * aceCounter();
+    }
+      return playerSum;
+
+};
+
+// function dealerScore() {
+//     var dealerSum = 0;
+//     for (var i = 0; i < dealerHand.length; i++) {
+//       dealerSum += dealerHand[i].value;
+//     }
+//       return dealerSum;
+// };
+
+
+// var dealerScore = dealerHand.reduce(function(p,c,i,a) {
+//  return p + c;
+// });
+
+//Additional
 // function playerScore() {
 //   return card1 + card2;
 // }
 
-//DEALING
-//var draw = deck.pop()
+// Additional feature?
 //function Hand() {
 //     this.card1 = draw;
 //     this.card2 = draw;
@@ -28,7 +46,7 @@
 //Creating the deck
 var deck =[];
 
-for(var i=0; i < 52; i++) {
+for(var i=0; i < 53; i++) {
 var suits = '';
 var face = String(i % 13);
 var value = i % 13;
@@ -69,3 +87,34 @@ var card = new Card(suits,face,code,value);
 
 deck.push(card);
 }
+
+deck = _.shuffle(deck);
+
+
+//Starting the game
+function startGame() {
+playerHand.push(deck.pop(),deck.pop());
+dealerHand.push(deck.pop(),deck.pop());
+}
+
+//Ace Logic
+function aceCounter() {
+var numAce = 0;
+for(var i = 0; i < playerHand.length; i++) {
+if(playerHand[i].face === "Ace") {
+numAce += 1;
+}
+}
+return numAce;
+}
+
+//Hit
+function playerHit() {
+  playerHand.push(deck.pop());
+};
+
+
+
+
+
+
