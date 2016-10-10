@@ -1,9 +1,11 @@
 // Player and dealer hands
 var playerHand = [];
 var dealerHand = [];
+var playerCurrentscore = 0;
+var dealerCurrentscore = 0;
 
 //TALLYING SCORE (add values in array at all times)
-
+//Player's score
 function playerScore() {
     var playerSum = 0;
     for (var i = 0; i < playerHand.length; i++) {
@@ -12,41 +14,29 @@ function playerScore() {
       if (playerSum > 21) {
       playerSum -= 10 * aceCounter();
     }
-      return playerSum;
+      playerCurrentscore = playerSum;
 
+      if(playerCurrentscore >= 21) {
+        result();
+    }
 };
 
-// function dealerScore() {
-//     var dealerSum = 0;
-//     for (var i = 0; i < dealerHand.length; i++) {
-//       dealerSum += dealerHand[i].value;
-//     }
-//       return dealerSum;
-// };
-
-
-// var dealerScore = dealerHand.reduce(function(p,c,i,a) {
-//  return p + c;
-// });
-
-//Additional
-// function playerScore() {
-//   return card1 + card2;
-// }
-
-// Additional feature?
-//function Hand() {
-//     this.card1 = draw;
-//     this.card2 = draw;
-//     this.currentScore = function(){
-//       return this.card1 + this.card2;
-//     }
-// }
+//Dealer's score
+function dealerScore() {
+    var dealerSum = 0;
+    for (var i = 0; i < dealerHand.length; i++) {
+      dealerSum += dealerHand[i].value;
+    }
+      if (dealerSum > 21) {
+      dealerSum -= 10 * aceCounter();
+    }
+      dealerCurrentscore = dealerSum;
+};
 
 //Creating the deck
 var deck =[];
 
-for(var i=0; i < 53; i++) {
+for(var i=0; i < 52; i++) {
 var suits = '';
 var face = String(i % 13);
 var value = i % 13;
@@ -95,7 +85,29 @@ deck = _.shuffle(deck);
 function startGame() {
 playerHand.push(deck.pop(),deck.pop());
 dealerHand.push(deck.pop(),deck.pop());
-}
+playerScore();
+dealerScore();
+};
+
+//Player Stays scenario
+function result() {
+  playerStay();
+if((playerCurrentscore === 21 && dealerCurrentscore === 21) || (playerCurrentscore === dealerCurrentscore)) {
+  alert("Tie Game!");
+  } else if (playerCurrentscore > 21) {
+    alert("Bust...");
+  } else if (playerCurrentscore === 21) {
+  alert("You got Blackjack!");
+  } else if (dealerCurrentscore === 21) {
+  alert("House Blackjack...");
+  } else if (dealerCurrentscore > 21) {
+  alert("Dealer bust!");
+  } else if (dealerCurrentscore > playerCurrentscore) {
+  alert("You lost...");
+  } else {
+  alert("You won!");
+  }
+};
 
 //Ace Logic
 function aceCounter() {
@@ -108,13 +120,28 @@ numAce += 1;
 return numAce;
 }
 
+
 //Hit
 function playerHit() {
-  playerHand.push(deck.pop());
+  //Win & Lose logic
+
+  if(playerCurrentscore >= 21) {
+    result();
+  } else{
+    playerHand.push(deck.pop());
+  }
+    playerScore();
 };
 
+//Stay
+function playerStay() {
+  //Dealer's actions
+  while(dealerCurrentscore < 17) {
+    dealerHand.push(deck.pop());
+    dealerScore();
+  }
+}
 
-
-
+//Fix double bust...
 
 
