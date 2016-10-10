@@ -28,7 +28,7 @@ function dealerScore() {
       dealerSum += dealerHand[i].value;
     }
       if (dealerSum > 21) {
-      dealerSum -= 10 * aceCounter();
+      dealerSum -= 10 * aceCounterDealer();
     }
       dealerCurrentscore = dealerSum;
 };
@@ -36,6 +36,7 @@ function dealerScore() {
 //Creating the deck
 var deck =[];
 
+function createDeck() {
 for(var i=0; i < 52; i++) {
 var suits = '';
 var face = String(i % 13);
@@ -76,13 +77,19 @@ if (code === 0) {
 var card = new Card(suits,face,code,value);
 
 deck.push(card);
+  }
 }
-
-deck = _.shuffle(deck);
-
 
 //Starting the game
 function startGame() {
+deck = [];
+createDeck();
+deck = _.shuffle(deck);
+// Player and dealer hands
+playerHand = [];
+dealerHand = [];
+playerCurrentscore = 0;
+dealerCurrentscore = 0;
 playerHand.push(deck.pop(),deck.pop());
 dealerHand.push(deck.pop(),deck.pop());
 playerScore();
@@ -109,7 +116,7 @@ if((playerCurrentscore === 21 && dealerCurrentscore === 21) || (playerCurrentsco
   }
 };
 
-//Ace Logic
+//Player Ace Logic
 function aceCounter() {
 var numAce = 0;
 for(var i = 0; i < playerHand.length; i++) {
@@ -120,14 +127,21 @@ numAce += 1;
 return numAce;
 }
 
+//Dealer Ace Logic
+function aceCounterDealer() {
+var numAceDealer = 0;
+for(var i = 0; i < dealerHand.length; i++) {
+if(dealerHand[i].face === "Ace") {
+numAceDealer += 1;
+}
+}
+return numAceDealer;
+}
 
 //Hit
 function playerHit() {
-  //Win & Lose logic
 
-  if(playerCurrentscore >= 21) {
-    result();
-  } else{
+  if(playerCurrentscore < 21) {
     playerHand.push(deck.pop());
   }
     playerScore();
