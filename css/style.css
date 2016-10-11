@@ -1,5 +1,59 @@
-h1 {
+/*h1 {
   font-family: 'Romanesco', cursive;
   text-align: center;
   font-size: 40pt;
+  color: white;
+}*/
+
+body {
+  background: transparent url(https://en1rnkpr0125001.blob.core.windows.net/media/Grosvenor/images/sidegames/Background/gc-game-background-1280x800-Blackjack-Realistic.png) 0 0 no-repeat;
 }
+
+menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #09eaf3;
+  border-radius: 20px;
+  box-shadow: inset 0 0 10px #888888;
+  position: fixed;
+  bottom: 1em;
+}
+
+menu li {
+  color: black;
+  display: inline-block;
+  text-align: center;
+  padding: 14px 16px;
+  border-right: 1px solid #151313;
+}
+
+li:hover {
+  cursor: pointer;
+  background-color: #465b6d;
+  color: #e1e6ec;
+}
+
+#player {
+  position: fixed;
+  bottom: 7em;
+  left: 30em;
+}
+
+#dealer {
+  position: fixed;
+  top: 10em;
+  left: 30em;
+}
+
+#scoreTable {
+  color: #EBEE32;
+  font-family: 'Romanesco', cursive;
+  position: fixed;
+  top: 4em;
+  font-size: 40pt;
+  text-align: center;
+}
+
+
