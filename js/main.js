@@ -1,16 +1,20 @@
 // Player and dealer hands
 var playerHand = [];
+var playerSplitHand = [];
 var dealerHand = [];
 var playerCurrentscore = 0;
 var dealerCurrentscore = 0;
-var playerMoney = 0;
+var playerSplitCurrentScore = 0;
+var playerMoney = 100;
 var moneyPool = 0;
-
+bets();
+viewMoney();
 // this.htmlE = $('<divx
 
 //TALLYING SCORE (add values in array at all times)
 //Player's score
-function playerScore() {
+function playerScore(split) {
+  if(!split) {
     var playerSum = 0;
     for (var i = 0; i < playerHand.length; i++) {
       playerSum += playerHand[i].value;
@@ -24,6 +28,20 @@ function playerScore() {
 
       if(playerCurrentscore >= 21) {
         result();
+    }
+  } var playerSplitSum = 0;
+    for (var i = 0; i < playerSplitHand.length; i++) {
+      playerSplitSum += playerSplitHand[i].value;
+    }
+      if (playerSplitSum > 21) {
+      playerSplitSum -= 10 * aceSplitCounter();
+    }
+      playerSplitCurrentscore = playerSplitSum;
+
+      //$('#pScore').text(playerCurrentscore);
+
+      if(playerSplitCurrentscore >= 21) {
+        result(split);
     }
 };
 
@@ -96,9 +114,10 @@ function createDeck() {
 
 //Starting the game
 function startGame() {
-deck = [];
-createDeck();
-deck = _.shuffle(deck);
+  if(moneyPool >= 1) {
+    deck = [];
+    createDeck();
+    deck = _.shuffle(deck);
 // Player and dealer hands
 playerHand = [];
 dealerHand = [];
@@ -113,30 +132,47 @@ $('#dealer').append('<div class="' + dealerHand[1].className + '"></div>');
 playerScore();
 dealerScore();
 viewPlayerHand();
-$('#hit').click(playerHit);
+$('#hit').click(function() {
+  playerHit();
+});
 $('#stay').click(result);
+$('.chips').off();
+$('#deal').off();
+} else if(playerMoney > 1 && moneyPool === 0) {
+$('#results').text('Place your bet!').fadeIn('slow').fadeOut(1000);
+} else {
+$('#results').text('Not enough money...').fadeIn('slow').fadeOut(1000);
+}
 };
 
 //Player Stays scenario
 function result() {
   playerStay();
 if((playerCurrentscore === 21 && dealerCurrentscore === 21) || (playerCurrentscore === dealerCurrentscore)) {
-  alert("Tie Game!");
+  $('#results').text('Push!').fadeIn('slow').fadeOut(4000);
+  playerMoney += moneyPool;
   } else if (playerCurrentscore > 21) {
-  alert("Bust...");
+  $('#results').text('Bust...').fadeIn('slow').fadeOut(4000);
   } else if (playerCurrentscore === 21) {
-  alert("You got Blackjack!");
+  $('#results').text('You got Blackjack!!!').fadeIn('slow').fadeOut(4000);
+  playerMoney += (moneyPool * 2) * 1.5
   } else if (dealerCurrentscore === 21) {
-  alert("House Blackjack...");
+  $('#results').text('House Blackjack...').fadeIn('slow').fadeOut(4000);
   } else if (dealerCurrentscore > 21) {
-  alert("Dealer bust!");
+  $('#results').text('Dealer bust!').fadeIn('slow').fadeOut(4000);
+  playerMoney += (moneyPool * 2);
   } else if (dealerCurrentscore > playerCurrentscore) {
-  alert("You lost...");
+  $('#results').text('You lost...').fadeIn('slow').fadeOut(4000);
   } else {
-  alert("You won!");
+  $('#results').text('You won!').fadeIn('slow').fadeOut(4000);
+  playerMoney += (moneyPool * 2);
   }
+  moneyPool = 0;
+  viewMoney();
+  bets();
   $('#hit').off();
   $('#stay').off();
+  $('#deal').click(startGame);
 };
 
 //Player Ace Logic
@@ -161,15 +197,22 @@ function aceCounterDealer() {
   return numAceDealer;
 }
 
+//User Actions/////////////////
 //Hit
-function playerHit() {
-
+function playerHit(split) {
+  if(!split) {
   if(playerCurrentscore < 21) {
     playerHand.push(deck.pop());
     viewPlayerHand();
   }
     playerScore();
-};
+}
+ if(playerSplitCurrentScore < 21) {
+   playerSplitHand.push(deck.pop());
+   //viewPlayerSplitHand
+ }
+}
+;
 
 //Stay
 function playerStay() {
@@ -183,12 +226,21 @@ function playerStay() {
   $('#dScore').text(dealerCurrentscore);
 }
 
+//Split
+function playerSplit() {
+  if(playerHand[0].value === playerHand[1].value) {
+    playerSplit.push(playerHand.pop());
+  }
+}
+
 //Render display/////////////
 //PlayerHand
 function viewPlayerHand() {
   $('#player').empty();
   $.each(playerHand, function(index,value) {
-    $('#player').append('<div class="' + value.className + '"></div>');
+    $('#player').append('<div class="newP ' + value.className + '"></div>');
+    $('.newP').hide();
+    $('.newP').slideDown();
   }
   )};
 
@@ -196,22 +248,89 @@ function viewPlayerHand() {
 function viewDealerHand() {
   $('#dealer').empty();
   $.each(dealerHand, function(index,value) {
-    $('#dealer').append('<div class="' + value.className + '"></div>');
+    $('#dealer').append('<div class="new ' + value.className + '"></div>');
+    $('.new').hide()
+    $('.new').slideDown()
   }
   )};
 
-//Stay
+//Money
+function viewMoney() {
+$('#pmoney').text('$' + playerMoney);
+$('#pbet').text('$' + moneyPool);
+};
+//Money Bets/////////////////
+function betOne() {
+  if(playerMoney >= 1) {
+    playerMoney -= 1;
+    moneyPool += 1;
+    viewMoney();
+  } else {
+  $('#results').text('Not enough money...').fadeIn('slow').fadeOut('slow');
+  }
+}
+
+
+function betFive() {
+  if(playerMoney >= 5) {
+    playerMoney -= 5;
+    moneyPool += 5;
+    viewMoney();
+  } else {
+  $('#results').text('Not enough money...').fadeIn('slow').fadeOut('slow');
+  }
+}
+
+function betTfive() {
+  if(playerMoney >= 25) {
+    playerMoney -= 25;
+    moneyPool += 25;
+    viewMoney();
+  } else {
+  $('#results').text('Not enough money...').fadeIn('slow').fadeOut('slow');
+  }
+}
+
+function betOneHund() {
+  if(playerMoney >= 100) {
+    playerMoney -= 100;
+    moneyPool += 100;
+    viewMoney();
+  } else {
+  $('#results').text('Not enough money...').fadeIn('slow').fadeOut('slow');
+  }
+}
+
+function betFhund() {
+  if(playerMoney >= 500) {
+    playerMoney -= 500;
+    moneyPool += 500;
+    viewMoney();
+  } else {
+  $('#results').text('Not enough money...').fadeIn('slow').fadeOut('slow');
+  }
+}
+//Click Events////////
+//Deal click event
 $('#deal').click(startGame);
 
-//Hit
-$('#hit').click(playerHit);
+//Chip bets
+function bets() {
+//Bet 1
+$('#onechip').click(betOne);
 
-//Stay
-$('#stay').click(result);
+//Bet 5
+$('#fivechip').click(betFive);
 
-//Money/////////////////
-function bet25() {
-  playerMoney -= 25;
-  moneyPool += 25;
-}
+//Bet 25
+$('#tfivechip').click(betTfive);
+
+//Bet 100
+$('#hundchip').click(betOneHund);
+
+//Bet 500
+$('#fhundchip').click(betFhund);
+};
+
+
 

@@ -9,8 +9,9 @@
 </head>
 <body>
 <!-- User Menu -->
-    <menu type="context toolbar">
+    <menu>
       <li id='deal'>Deal</li>
+      <li id='split'>Split</li>
       <li id='hit'>Hit</li>
       <li id='stay'>Stay</li>
     </menu>
@@ -30,7 +31,25 @@
   </div>
 
   <!-- Money display -->
-<div>Total Money:</div>
+  <div id='bal'>Balance:
+    <br>
+    <span id='pmoney'></span>
+    <br>
+      Current Bet:
+    <br>
+    <span id='pbet'></span>
+    </div>
+
+  <!-- Betting chips -->
+  <div class='chips' id="onechip">$1</div>
+  <div class='chips' id="fivechip">$5</div>
+  <div class='chips' id="tfivechip">$25</div>
+  <div class='chips' id="hundchip">$100</div>
+  <div class='chips' id="fhundchip">$500</div>
+
+  <!-- Results window -->
+<div id='results'></div>
+
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js"></script>
