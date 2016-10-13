@@ -29,7 +29,7 @@ menu li {
   padding: 14px 16px;
 }
 
-li:hover {
+menu li:hover {
   cursor: pointer;
   background-color: #465b6d;
   color: #e1e6ec;
@@ -45,6 +45,13 @@ li:hover {
   position: fixed;
   top: 8em;
   left: 30em;
+}
+
+#pSplit {
+  position: fixed;
+  bottom: 15em;
+  left: 52em;
+  color:white;
 }
 
 #scoreTable {
