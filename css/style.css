@@ -1,12 +1,6 @@
-/*h1 {
-  font-family: 'Romanesco', cursive;
-  text-align: center;
-  font-size: 40pt;
-  color: white;
-}*/
-
 body {
   background: transparent url(https://en1rnkpr0125001.blob.core.windows.net/media/Grosvenor/images/sidegames/Background/gc-game-background-1280x800-Blackjack-Realistic.png) 0 0 no-repeat;
+  position: relative;
 }
 
 menu {
@@ -17,9 +11,8 @@ menu {
   background-color: #09eaf3;
   border-radius: 20px;
   box-shadow: inset 0 0 10px #888888;
-  position: fixed;
-  bottom: 1em;
-  left: 29em;
+  position: absolute;
+  top: 40em;
 }
 
 menu li {
@@ -36,21 +29,21 @@ menu li:hover {
 }
 
 #player {
-  position: fixed;
-  bottom: 15em;
-  left: 30em;
+  position: absolute;
+  top: 19em;
+  left: 28em;
 }
 
 #dealer {
-  position: fixed;
-  top: 8em;
-  left: 30em;
+  position: absolute;
+  top: 5em;
+  left: 28em;
 }
 
 #pSplit {
-  position: fixed;
-  bottom: 15em;
-  left: 52em;
+  position: absolute;
+  top: 19em;
+  left: 47em;
   color:white;
 }
 
@@ -74,17 +67,22 @@ menu li:hover {
 }
 
 #bal {
+  padding: 1.5em;
   color: white;
-  top: 29em;
-  left: 31em;
-  position: fixed;
+  top: 29.3em;
+  left: 28em;
+  position: absolute;
   font-size: 14pt;
   text-align: center;
+  background: rgba(43,183,164,0.8);
+  background-size: contain;
+  border-radius: 15%;
 }
 
 #onechip {
-  position: fixed;
-  top: 35em;
+  position: absolute;
+  top: 36.9em;
+  left: 1.3em;
   width: 30px;
   height:30px;
   border-radius: 50%;
@@ -97,9 +95,9 @@ menu li:hover {
 }
 
 #fivechip {
-  position: fixed;
-  top: 36.5em;
-  left: 4em;
+  position: absolute;
+  top: 36.6em;
+  left: 4.5em;
   width: 33px;
   height:33px;
   border-radius: 50%;
@@ -113,8 +111,8 @@ menu li:hover {
 
 
 #tfivechip {
-  position: fixed;
-  top: 38em;
+  position: absolute;
+  top: 36.3em;
   left: 8em;
   width: 38px;
   height:38px;
@@ -129,9 +127,9 @@ menu li:hover {
 }
 
 #hundchip {
-  position: fixed;
-  top: 32em;
-  left: 4em;
+  position: absolute;
+  top: 36em;
+  left: 12em;
   width: 41px;
   height:41px;
   border-radius: 50%;
@@ -145,9 +143,9 @@ menu li:hover {
 }
 
 #fhundchip {
-  position: fixed;
-  top: 33.5em;
-  left: 8em;
+  position: absolute;
+  top: 35.8em;
+  left: 16em;
   width: 45px;
   height:45px;
   border-radius: 50%;
@@ -162,7 +160,6 @@ menu li:hover {
 
 .chips:hover {
   cursor: pointer;
-  background-color: #465b6d;
   color: black;
 }
 
@@ -173,6 +170,85 @@ menu li:hover {
   top: 4em;
   font-size: 42pt;
 }
+
+/*@media screen and (max-width: 1040px) , screen and (max-height: 670px) {
+body {
+  position: relative;
+}
+
+menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #09eaf3;
+  border-radius: 20px;
+  box-shadow: inset 0 0 10px #888888;
+  position: absolute;
+  top: 38em;
+  left: 22em;
+  display: flex;
+  flex-direction: row;
+}
+
+#player {
+  position: absolute;
+  top: 20em;
+  left: 22em;
+}
+
+#dealer {
+  position: absolute;
+  top: 6em;
+  left: 22em;
+}
+
+#pSplit {
+  position: absolute;
+  top: 20em;
+  left: 37em;
+}
+
+#scoreTable {
+  color: #EBEE32;
+  font-family: 'Romanesco', cursive;
+  position: absolute;
+  top: 4em;
+  font-size: 40pt;
+  text-align: center;
+}
+
+.chips {
+  position: absolute;
+}
+
+#bal {
+  position: absolute;
+  top: 23.5em;
+  left: 24em;
+}
+
+#sScoreTable {
+  color: #EBEE32;
+  font-family: 'Romanesco', cursive;
+  position: absolute;
+  top: 4em;
+  left: 16em;
+  font-size: 40pt;
+  text-align: center;
+}
+
+#results {
+  color: white;
+  position: fixed;
+  left: 6em;
+  top: 4em;
+  font-size: 42pt;
+}
+};
+*/
+
+
+
 
 
 
