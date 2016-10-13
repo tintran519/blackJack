@@ -63,6 +63,16 @@ menu li:hover {
   text-align: center;
 }
 
+#sScoreTable {
+  color: #EBEE32;
+  font-family: 'Romanesco', cursive;
+  position: fixed;
+  top: 3em;
+  left: 20em;
+  font-size: 40pt;
+  text-align: center;
+}
+
 #bal {
   color: white;
   top: 29em;

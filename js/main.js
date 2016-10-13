@@ -35,9 +35,10 @@ function playerScore() {
     $('#stay').click(resultSplit);
     if(playerCurrentscore === 21) {
     $('#results').hide().text('Hand 1 got Blackjack!').fadeIn('slow').fadeOut(800);
-  } else if(playerCurrentscore > 21){
+  } else if(playerCurrentscore > 21) {
     $('#results').hide().text('Hand 1 bust...').fadeIn('slow').fadeOut(800);
   }
+    playerSplitScore();
 }
 }
 
@@ -51,7 +52,7 @@ function playerScore() {
     }
       playerSplitCurrentScore = playerSplitSum;
 
-      //$('splitScore').text(playerSplitCurrentScore);
+      $('#sScore').text(playerSplitCurrentScore);
 
       if(playerSplitCurrentScore >= 21) {
         resultSplit();
@@ -70,8 +71,18 @@ function playerScore() {
 
       $('#pScore').text(playerCurrentscore);
 
+      if(playerSplitHand.length === 0) {
       result();
+  }   else if(playerSplitHand.length > 0 && playerCurrentscore >= 21) {
+      $('#double').off();
+      $('#double').click(doubleDownSplit);
+        if(playerCurrentscore > 21) {
+      $('#results').hide().text('Bust...').fadeIn('slow').fadeOut(800);
+     } else if(playerCurrentscore === 21){
+      $('#results').hide().text('Blackjack!').fadeIn('slow').fadeOut(800);
+    }
   }
+}
 
 //Dealer's score
 function dealerScore() {
@@ -180,19 +191,24 @@ function result() {
   if(playerSplitHand.length > 0) {
     $('#stay').off();
     $('#hit').off();
+    $('#double').off();
     $('#hit').click(splitHit);
     $('#stay').click(resultSplit);
+    $('#double').click(doubleDownSplit);
     $('#results').hide().text('Hand 1 stays...').fadeIn('slow').fadeOut(800);
+    playerSplitScore();
 
   } else {
       playerStay();
-    if((playerCurrentscore === 21 && dealerCurrentscore === 21) || (playerCurrentscore === dealerCurrentscore)) {
+    if((playerCurrentscore === 21 && dealerCurrentscore === 21)) {
       $('#results').text('Push!').fadeIn('slow').fadeOut(4000);
       playerMoney += moneyPool;
     } else if (playerCurrentscore > 21) {
       $('#results').text('Bust...').fadeIn('slow').fadeOut(4000);
+    } else if (playerCurrentscore === dealerCurrentscore) {
+      $('#results').hide().text('Push!').fadeIn('slow').fadeOut(4000);
     } else if (playerCurrentscore === 21) {
-      $('#results').text('You got Blackjack!!!').fadeIn('slow').fadeOut(4000);
+      $('#results').text('You got Blackjack!!!').hide().fadeIn('fast').fadeOut(4000);
       playerMoney += (moneyPool * 2 * 1.5);
     } else if (dealerCurrentscore === 21) {
       $('#results').text('House Blackjack...').fadeIn('slow').fadeOut(4000);
@@ -236,6 +252,12 @@ function resultSplit() {
     } else if (dealerCurrentscore > 21 && playerCurrentscore > 21 && playerSplitCurrentScore < 21) {
       $('#results').hide().text('One hand won...').fadeIn('slow').fadeOut(4000);
       playerMoney += splitMoneyPool;
+    } else if (dealerCurrentscore > 21 && playerCurrentscore === 21 && playerSplitCurrentScore < 21) {
+      $('#results').hide().text('You won with one Blackjack!').fadeIn('slow').fadeOut(4000);
+      playerMoney += (moneyPool * 2 * 1.5) + (splitMoneyPool * 2);
+    } else if (dealerCurrentscore > 21 && playerCurrentscore < 21 && playerSplitCurrentScore === 21) {
+      $('#results').hide().text('You won with one Blackjack!').fadeIn('slow').fadeOut(4000);
+      playerMoney += (splitMoneyPool * 2 * 1.5) + (moneyPool * 2);
     } else if (dealerCurrentscore < 21 && playerCurrentscore === 21 && playerSplitCurrentScore === dealerCurrentscore){
       $('#results').hide().text('You got one Blackjack & one push!').fadeIn('slow').fadeOut(4000);
       playerMoney += (moneyPool * 2 * 1.5) + splitMoneyPool;
@@ -266,11 +288,17 @@ function resultSplit() {
     } else if (dealerCurrentscore <= 21 && dealerCurrentscore > playerCurrentscore && dealerCurrentscore > playerSplitCurrentScore) {
       $('#results').text('You lost both hands...').fadeIn('slow').fadeOut(4000);
     } else if (playerCurrentscore > 21 && dealerCurrentscore <= 21 && playerSplitCurrentScore <= 21 && dealerCurrentscore < playerSplitCurrentScore) {
-      $('#results').text('One hand won...').fadeIn('slow').fadeOut(4000);
+      $('#results').text('One bust and one win...').fadeIn('slow').fadeOut(4000);
       playerMoney += splitMoneyPool * 2;
     } else if (playerSplitCurrentScore > 21 && dealerCurrentscore <= 21 && playerCurrentscore <=21 && dealerCurrentscore < playerCurrentscore) {
-      $('#results').text('One hand won...').fadeIn('slow').fadeOut(4000);
+      $('#results').text('One bust and hand win...').fadeIn('slow').fadeOut(4000);
       playerMoney += moneyPool * 2;
+    } else if (dealerCurrentscore <= 21 && dealerCurrentscore === playerCurrentscore && playerSplitCurrentScore > dealerCurrentscore){
+      $('#results').text('One push and one win!').fadeIn('slow').fadeOut(4000);
+      playerMoney += moneyPool + (splitMoneyPool * 2);
+    } else if (dealerCurrentscore <= 21 && dealerCurrentscore === playerSplitCurrentScore && dealerCurrentscore < playerCurrentscore) {
+      $('#results').text('One push and one win!').fadeIn('slow').fadeOut(4000);
+      playerMoney += splitMoneyPool + (moneyPool * 2);
     } else if (playerCurrentscore <= 21 && dealerCurrentscore <= 21 && playerSplitCurrentScore <= 21 && dealerCurrentscore < playerCurrentscore && dealerCurrentscore > playerSplitCurrentScore) {
       $('#results').text('One hand won...').fadeIn('slow').fadeOut(4000);
       playerMoney += moneyPool * 2;
@@ -294,6 +322,7 @@ function resultSplit() {
     bets();
     $('#hit').off();
     $('#stay').off();
+    $('#double').off();
     $('#deal').click(startGame);
   };
 
@@ -393,6 +422,15 @@ function doubleDown() {
   }
 }
 
+function doubleDownSplit() {
+  if(playerSplitHand.length === 2 && playerSplitCurrentScore >= 9 && playerSplitCurrentScore <= 11 && playerMoney >= splitMoneyPool) {
+    playerMoney -= splitMoneyPool;
+    splitMoneyPool += splitMoneyPool;
+    playerSplitHand.push(deck.pop());
+    viewSplit();
+    resultSplit();
+  }
+}
 //Render display/////////////
 //PlayerHand
 function viewPlayerHand() {
