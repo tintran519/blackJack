@@ -15,26 +15,31 @@ viewMoney();
 //TALLYING SCORE (add values in array at all times)
 //Player's score
 function playerScore() {
-    var playerSum = 0;
-    for (var i = 0; i < playerHand.length; i++) {
-      playerSum += playerHand[i].value;
-    }
-      if (playerSum > 21) {
-      playerSum -= 10 * aceCounter();
-    }
-      playerCurrentscore = playerSum;
-
-      $('#pScore').text(playerCurrentscore);
-
-      if(playerCurrentscore >= 21 && playerSplitHand.length === 0) {
-        result();
-      } else if(playerCurrentscore >=21 && playerSplitHand.length > 0) {
-        $('#hit').off();
-        $('#stay').off();
-        $('#hit').click(splitHit);
-        $('#stay').click(resultSplit);
-      }
+  var playerSum = 0;
+  for (var i = 0; i < playerHand.length; i++) {
+    playerSum += playerHand[i].value;
   }
+  if (playerSum > 21) {
+    playerSum -= 10 * aceCounter();
+  }
+  playerCurrentscore = playerSum;
+
+  $('#pScore').text(playerCurrentscore);
+
+  if(playerCurrentscore >= 21 && playerSplitHand.length === 0) {
+    result();
+  } else if(playerCurrentscore >=21 && playerSplitHand.length > 0) {
+    $('#hit').off();
+    $('#stay').off();
+    $('#hit').click(splitHit);
+    $('#stay').click(resultSplit);
+    if(playerCurrentscore === 21) {
+    $('#results').hide().text('Hand 1 got Blackjack!').fadeIn('slow').fadeOut(800);
+  } else if(playerCurrentscore > 21){
+    $('#results').hide().text('Hand 1 bust...').fadeIn('slow').fadeOut(800);
+  }
+}
+}
 
   function playerSplitScore() {
     var playerSplitSum = 0;
@@ -53,6 +58,20 @@ function playerScore() {
     }
   };
 
+  function doubleScore() {
+    var playerSum = 0;
+    for (var i = 0; i < playerHand.length; i++) {
+      playerSum += playerHand[i].value;
+    }
+      if (playerSum > 21) {
+      playerSum -= 10 * aceCounter();
+    }
+      playerCurrentscore = playerSum;
+
+      $('#pScore').text(playerCurrentscore);
+
+      result();
+  }
 
 //Dealer's score
 function dealerScore() {
@@ -126,7 +145,7 @@ function startGame() {
   if(moneyPool >= 1) {
     deck = [];
     createDeck();
-    // deck = _.shuffle(deck);
+    deck = _.shuffle(deck);
     // Player and dealer hands
     playerHand = [];
     dealerHand = [];
@@ -144,6 +163,7 @@ function startGame() {
     viewPlayerHand();
     viewSplit();
     $('#hit').click(playerHit);
+    $('#double').click(doubleDown);
     $('#split').click(playerSplit);
     $('#stay').click(result);
     $('.chips').off();
@@ -162,6 +182,7 @@ function result() {
     $('#hit').off();
     $('#hit').click(splitHit);
     $('#stay').click(resultSplit);
+    $('#results').hide().text('Hand 1 stays...').fadeIn('slow').fadeOut(800);
 
   } else {
       playerStay();
@@ -172,7 +193,7 @@ function result() {
       $('#results').text('Bust...').fadeIn('slow').fadeOut(4000);
     } else if (playerCurrentscore === 21) {
       $('#results').text('You got Blackjack!!!').fadeIn('slow').fadeOut(4000);
-      playerMoney += (moneyPool * 2) * 1.5
+      playerMoney += (moneyPool * 2 * 1.5);
     } else if (dealerCurrentscore === 21) {
       $('#results').text('House Blackjack...').fadeIn('slow').fadeOut(4000);
     } else if (dealerCurrentscore > 21) {
@@ -189,6 +210,7 @@ function result() {
     bets();
     $('#hit').off();
     $('#stay').off();
+    $('#double').off();
     $('#deal').click(startGame);
   }
 }
@@ -205,15 +227,42 @@ function resultSplit() {
       playerMoney += (moneyPool * 2 * 1.5) + (splitMoneyPool * 2 * 1.5);
     } else if (dealerCurrentscore === 21 && playerCurrentscore < 21 && playerSplitCurrentScore < 21) {
       $('#results').text('House Blackjack...').fadeIn('slow').fadeOut(4000);
+    } else if (dealerCurrentscore <= 21 && playerCurrentscore <= 21 & playerSplitCurrentScore <= 21 && playerCurrentscore > dealerCurrentscore && playerSplitCurrentScore > dealerCurrentscore) {
+      $('#results').hide().text('Double win!').fadeIn('slow').fadeOut(4000);
+      playerMoney += (moneyPool * 2) + (splitMoneyPool * 2);
+    } else if (dealerCurrentscore > 21 && playerCurrentscore < 21 && playerSplitCurrentScore > 21) {
+      $('#results').hide().text('One hand won...').fadeIn('slow').fadeOut(4000);
+      playerMoney += moneyPool;
+    } else if (dealerCurrentscore > 21 && playerCurrentscore > 21 && playerSplitCurrentScore < 21) {
+      $('#results').hide().text('One hand won...').fadeIn('slow').fadeOut(4000);
+      playerMoney += splitMoneyPool;
+    } else if (dealerCurrentscore < 21 && playerCurrentscore === 21 && playerSplitCurrentScore === dealerCurrentscore){
+      $('#results').hide().text('You got one Blackjack & one push!').fadeIn('slow').fadeOut(4000);
+      playerMoney += (moneyPool * 2 * 1.5) + splitMoneyPool;
+    } else if (dealerCurrentscore < 21 &&  playerSplitCurrentScore === 21 && dealerCurrentscore === playerCurrentscore){
+      $('#results').hide().text('You got one Blackjack & one push!').fadeIn('slow').fadeOut(4000);
+      playerMoney += (splitMoneyPool * 2 * 1.5) + splitMoneyPool;
     } else if (playerCurrentscore === 21 && dealerCurrentscore > playerSplitCurrentScore) {
-      $('#results').text('You got one Blackjack.').fadeIn('slow').fadeOut(4000);
+      $('#results').text('You got one Blackjack & one loss.').fadeIn('slow').fadeOut(4000);
       playerMoney += moneyPool * 2 * 1.5;
     } else if (playerSplitCurrentScore === 21 && dealerCurrentscore > playerCurrentscore) {
-      $('#results').text('You got one Blackjack.').fadeIn('slow').fadeOut(4000);
+      $('#results').text('You got one Blackjack & one loss.').fadeIn('slow').fadeOut(4000);
       playerMoney += splitMoneyPool * 2 * 1.5;
     } else if (dealerCurrentscore > 21 && playerCurrentscore < 21 && playerSplitCurrentScore < 21) {
       $('#results').text('Dealer bust!').fadeIn('slow').fadeOut(4000);
       playerMoney += (moneyPool * 2) + (splitMoneyPool * 2);
+    } else if (dealerCurrentscore > 21 && playerCurrentscore === 21 && playerSplitCurrentScore < 21) {
+      $('#results').hide().text('You got one Blackjack & dealer bust!').fadeIn('slow').fadeOut(4000);
+      playerMoney += (moneyPool * 2 * 1.5) + splitMoneyPool * 2;
+    } else if (dealerCurrentscore > 21 && playerCurrentscore < 21 && playerSplitCurrentScore === 21) {
+      $('#results').hide().text('You got one Blackjack & dealer bust!').fadeIn('slow').fadeOut(4000);
+      playerMoney += (splitMoneyPool * 2 * 1.5) + moneyPool * 2;
+    } else if (dealerCurrentscore <= 21 && dealerCurrentscore === playerCurrentscore && dealerCurrentscore > playerSplitCurrentScore) {
+      $('#results').hide().text('One push & one lost...').fadeIn('slow').fadeOut(4000);
+      playerMoney += moneyPool;
+    } else if (dealerCurrentscore <= 21 && dealerCurrentscore === playerSplitCurrentScore && dealerCurrentscore > playerCurrentscore) {
+      $('#results').hide().text('One push & one lost...').fadeIn('slow').fadeOut(4000);
+      playerMoney += splitMoneyPool;
     } else if (dealerCurrentscore <= 21 && dealerCurrentscore > playerCurrentscore && dealerCurrentscore > playerSplitCurrentScore) {
       $('#results').text('You lost both hands...').fadeIn('slow').fadeOut(4000);
     } else if (playerCurrentscore > 21 && dealerCurrentscore <= 21 && playerSplitCurrentScore <= 21 && dealerCurrentscore < playerSplitCurrentScore) {
@@ -331,6 +380,17 @@ function playerSplit() {
     $('#split').off();
   }
 }
+}
+
+//Double
+function doubleDown() {
+  if(playerHand.length === 2 && playerCurrentscore >= 9 && playerCurrentscore <= 11 && playerMoney >= moneyPool) {
+    playerMoney -= moneyPool;
+    moneyPool += moneyPool;
+    playerHand.push(deck.pop());
+    viewPlayerHand();
+    doubleScore();
+  }
 }
 
 //Render display/////////////
