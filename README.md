@@ -21,11 +21,12 @@ To access the game, simply follow the instructions below:
 Due to time constraints, there are still a couple of features that could be
 implemented/improved to maximize user experience:
   * Fixing bug issues that occasionally occurs with win/lose results after a hand is split
+  * When splitting, provide an indicator for current hand
   * CSS modifications to allow compatibility with mobile devices
   * Responsiveness to various window sizes in browser
   * Incorporating selective icons for the user menu
   * Adding audio effects for menu selection and card deals
-  * Allowing users to subtract funds from the betting pool.
+  * Allowing users to subtract funds from the betting pool
 
 
 
