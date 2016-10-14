@@ -16,6 +16,7 @@
       <li id="double">Double</li>
       <li id='hit'>Hit</li>
       <li id='stay'>Stay</li>
+      <li id='insurance'>Insurance</li>
     </menu>
 
 <!-- Player/Dealer Hands -->
@@ -63,7 +64,13 @@
   <!-- Results window -->
 <div id='results'></div>
 
+<audio id='dealAudio' controls>
+ <source src='cardAudio/cardPlace1.wav' type='audio/wav'>
+</audio>
 
+<audio id='chipAudio' controls>
+ <source src='cardAudio/chipsHandle4.wav' type='audio/wav'>
+</audio>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js"></script>
 <script src="js/main.js"></script>

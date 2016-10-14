@@ -8,6 +8,7 @@ var playerSplitCurrentScore = 0;
 var playerMoney = 100;
 var moneyPool = 0;
 var splitMoneyPool = 0;
+var insurancePool = 0;
 bets();
 viewMoney();
 // this.htmlE = $('<divx
@@ -154,6 +155,7 @@ function createDeck() {
 //Starting the game
 function startGame() {
   if(moneyPool >= 1) {
+    $('#dealAudio').get(0).play();
     deck = [];
     createDeck();
     deck = _.shuffle(deck);
@@ -176,6 +178,7 @@ function startGame() {
     $('#hit').click(playerHit);
     $('#double').click(doubleDown);
     $('#split').click(playerSplit);
+    $('#insurance').click(insurance);
     $('#stay').click(result);
     $('.chips').off();
     $('#deal').off();
@@ -202,16 +205,18 @@ function result() {
       playerStay();
     if((playerCurrentscore === 21 && dealerCurrentscore === 21)) {
       $('#results').text('Push!').fadeIn('slow').fadeOut(4000);
-      playerMoney += moneyPool;
+      playerMoney += moneyPool + insurancePool;
     } else if (playerCurrentscore > 21) {
       $('#results').text('Bust...').fadeIn('slow').fadeOut(4000);
     } else if (playerCurrentscore === dealerCurrentscore) {
       $('#results').hide().text('Push!').fadeIn('slow').fadeOut(4000);
+      playerMoney += moneyPool;
     } else if (playerCurrentscore === 21) {
       $('#results').text('You got Blackjack!!!').hide().fadeIn('fast').fadeOut(4000);
       playerMoney += (moneyPool * 2 * 1.5);
     } else if (dealerCurrentscore === 21) {
       $('#results').text('House Blackjack...').fadeIn('slow').fadeOut(4000);
+      playerMoney += insurancePool;
     } else if (dealerCurrentscore > 21) {
       $('#results').text('Dealer bust!').fadeIn('slow').fadeOut(4000);
       playerMoney += (moneyPool * 2);
@@ -222,6 +227,7 @@ function result() {
       playerMoney += (moneyPool * 2);
     }
     moneyPool = 0;
+    insurancePool = 0;
     viewMoney();
     bets();
     $('#hit').off();
@@ -363,6 +369,7 @@ function aceCounterSplit() {
 //Hit
 function playerHit() {
     if(playerCurrentscore < 21) {
+      $('#dealAudio').get(0).play();
       playerHand.push(deck.pop());
       viewPlayerHand();
     }
@@ -373,6 +380,7 @@ function playerHit() {
 //Split hand hit
 function splitHit() {
     if(playerSplitCurrentScore < 21) {
+     $('#dealAudio').get(0).play();
      playerSplitHand.push(deck.pop());
      viewSplit();
    }
@@ -397,6 +405,7 @@ function playerStay() {
 function playerSplit() {
   if(playerHand.length > 0) {
   if(playerHand[0].value === playerHand[1].value && playerMoney >= moneyPool) {
+    $('#dealAudio').get(0).play();
     playerSplitHand.push(playerHand.pop());
     playerHand.push(deck.pop());
     playerSplitHand.push(deck.pop());
@@ -416,6 +425,7 @@ function doubleDown() {
   if(playerHand.length === 2 && playerCurrentscore >= 9 && playerCurrentscore <= 11 && playerMoney >= moneyPool) {
     playerMoney -= moneyPool;
     moneyPool += moneyPool;
+    $('#dealAudio').get(0).play();
     playerHand.push(deck.pop());
     viewPlayerHand();
     doubleScore();
@@ -426,9 +436,19 @@ function doubleDownSplit() {
   if(playerSplitHand.length === 2 && playerSplitCurrentScore >= 9 && playerSplitCurrentScore <= 11 && playerMoney >= splitMoneyPool) {
     playerMoney -= splitMoneyPool;
     splitMoneyPool += splitMoneyPool;
+    $('#dealAudio').get(0).play();
     playerSplitHand.push(deck.pop());
     viewSplit();
     resultSplit();
+  }
+}
+
+//Insurance
+function insurance() {
+  if(dealerHand[1].face === 'A' && playerHand.length === 2) {
+     playerMoney -= moneyPool * 0.5;
+     insurancePool += moneyPool * 0.5;
+     $('#insurance').off();
   }
 }
 //Render display/////////////
@@ -472,6 +492,7 @@ function betOne() {
   if(playerMoney >= 1) {
     playerMoney -= 1;
     moneyPool += 1;
+    $('#chipAudio').get(0).play();
     viewMoney();
   } else {
   $('#results').text('Not enough money...').fadeIn('slow').fadeOut('slow');
@@ -483,6 +504,7 @@ function betFive() {
   if(playerMoney >= 5) {
     playerMoney -= 5;
     moneyPool += 5;
+    $('#chipAudio').get(0).play();
     viewMoney();
   } else {
   $('#results').text('Not enough money...').fadeIn('slow').fadeOut('slow');
@@ -493,6 +515,7 @@ function betTfive() {
   if(playerMoney >= 25) {
     playerMoney -= 25;
     moneyPool += 25;
+    $('#chipAudio').get(0).play();
     viewMoney();
   } else {
   $('#results').text('Not enough money...').fadeIn('slow').fadeOut('slow');
@@ -503,6 +526,7 @@ function betOneHund() {
   if(playerMoney >= 100) {
     playerMoney -= 100;
     moneyPool += 100;
+    $('#chipAudio').get(0).play();
     viewMoney();
   } else {
   $('#results').text('Not enough money...').fadeIn('slow').fadeOut('slow');
@@ -513,6 +537,7 @@ function betFhund() {
   if(playerMoney >= 500) {
     playerMoney -= 500;
     moneyPool += 500;
+    $('#chipAudio').get(0).play();
     viewMoney();
   } else {
   $('#results').text('Not enough money...').fadeIn('slow').fadeOut('slow');
@@ -539,6 +564,3 @@ $('#hundchip').click(betOneHund);
 //Bet 500
 $('#fhundchip').click(betFhund);
 };
-
-
-

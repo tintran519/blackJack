@@ -171,6 +171,10 @@ menu li:hover {
   font-size: 42pt;
 }
 
+audio {
+  display: none;
+}
+
 /*@media screen and (max-width: 1040px) , screen and (max-height: 670px) {
 body {
   position: relative;
