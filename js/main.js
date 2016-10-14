@@ -167,6 +167,7 @@ function startGame() {
     dealerCurrentscore = 0;
     playerHand.push(deck.pop(),deck.pop());
     dealerHand.push(deck.pop(),deck.pop());
+    $('#sScore').text('');
     $('#dScore').text('?');
     $('#dealer').empty();
     $('#dealer').append('<div class="card back-blue"></div>');
