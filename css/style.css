@@ -175,10 +175,7 @@ audio {
   display: none;
 }
 
-/*@media screen and (max-width: 1040px) , screen and (max-height: 670px) {
-body {
-  position: relative;
-}
+@media screen and (max-width: 380px) , screen and (max-height: 670px) {
 
 menu {
   list-style-type: none;
@@ -188,68 +185,67 @@ menu {
   border-radius: 20px;
   box-shadow: inset 0 0 10px #888888;
   position: absolute;
-  top: 38em;
-  left: 22em;
+  top: 40em;
   display: flex;
-  flex-direction: row;
 }
 
 #player {
   position: absolute;
-  top: 20em;
-  left: 22em;
+  top: 23em;
+  left: 12em;
+  display: flex;
 }
 
 #dealer {
   position: absolute;
-  top: 6em;
-  left: 22em;
+  top: 5em;
+  left: 15em;
+  display: flex;
 }
 
 #pSplit {
   position: absolute;
-  top: 20em;
-  left: 37em;
+  top: 23em;
+  left: 28em;
+  display: flex;
 }
 
 #scoreTable {
   color: #EBEE32;
   font-family: 'Romanesco', cursive;
   position: absolute;
-  top: 4em;
-  font-size: 40pt;
-  text-align: center;
-}
-
-.chips {
-  position: absolute;
+  top: 0em;
+  font-size: 25pt;
+  text-align: left;
 }
 
 #bal {
   position: absolute;
-  top: 23.5em;
-  left: 24em;
+  top: 29.3em;
+  left: 34em;
+  font-size: 14pt;
+  padding: 1em;
 }
 
 #sScoreTable {
   color: #EBEE32;
   font-family: 'Romanesco', cursive;
   position: absolute;
-  top: 4em;
-  left: 16em;
-  font-size: 40pt;
-  text-align: center;
+  top: 6.5em;
+  left: 0em;
+  font-size: 22pt;
+  text-align: left;
 }
 
 #results {
   color: white;
   position: fixed;
-  left: 6em;
+  left: 4em;
   top: 4em;
   font-size: 42pt;
 }
 };
-*/
+
 
 
 

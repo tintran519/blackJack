@@ -28,7 +28,7 @@ implemented/improved to maximize user experience:
   * Adding audio effects for menu selection and card deals
   * Allowing users to subtract funds from the betting pool
 
-
+Public [gist](https://gist.github.com/tintran519/be5d3dfede9bae53459e2b0ed4a2399e)
 
 
 
