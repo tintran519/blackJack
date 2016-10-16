@@ -20,6 +20,8 @@ menu li {
   display: inline-block;
   text-align: center;
   padding: 14px 16px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
 }
 
 menu li:hover {
@@ -67,21 +69,22 @@ menu li:hover {
 }
 
 #bal {
-  padding: 1.5em;
+  padding: 1em;
   color: white;
-  top: 29.3em;
-  left: 28em;
+  top: 17.3em;
+  left: 19em;
   position: absolute;
-  font-size: 14pt;
+  font-size: 22pt;
   text-align: center;
   background: rgba(43,183,164,0.8);
   background-size: contain;
   border-radius: 15%;
+  font-family: 'Romanesco', cursive;
 }
 
 #onechip {
   position: absolute;
-  top: 36.9em;
+  top: 19.5em;
   left: 1.3em;
   width: 30px;
   height:30px;
@@ -91,13 +94,13 @@ menu li:hover {
   background: #e6ebf1;
   box-shadow: 0 0 3px gray;
   text-align: center;
-  line-height: 1.7em;
+  line-height: 0.7em;
 }
 
 #fivechip {
   position: absolute;
-  top: 36.6em;
-  left: 4.5em;
+  top: 19.4em;
+  left: 3.8em;
   width: 33px;
   height:33px;
   border-radius: 50%;
@@ -106,14 +109,14 @@ menu li:hover {
   background: #e6ebf1;
   box-shadow: 0 0 3px gray;
   text-align: center;
-  line-height: 1.9em;
+  line-height: 0.9em;
 }
 
 
 #tfivechip {
   position: absolute;
-  top: 36.3em;
-  left: 8em;
+  top: 19.2em;
+  left: 6.4em;
   width: 38px;
   height:38px;
   border-radius: 50%;
@@ -122,14 +125,14 @@ menu li:hover {
   background: #e6ebf1;
   box-shadow: 0 0 3px gray;
   text-align: center;
-  line-height: 2.3em;
+  line-height: 1em;
   font-weignt: bold;
 }
 
 #hundchip {
   position: absolute;
-  top: 36em;
-  left: 12em;
+  top: 19.1em;
+  left: 9.3em;
   width: 41px;
   height:41px;
   border-radius: 50%;
@@ -138,14 +141,14 @@ menu li:hover {
   background: #e6ebf1;
   box-shadow: 0 0 3px gray;
   text-align: center;
-  line-height: 2.6em;
+  line-height: 1em;
   font-weignt: bold;
 }
 
 #fhundchip {
   position: absolute;
-  top: 35.8em;
-  left: 16em;
+  top: 19em;
+  left: 12em;
   width: 45px;
   height:45px;
   border-radius: 50%;
@@ -154,8 +157,13 @@ menu li:hover {
   background: #e6ebf1;
   box-shadow: 0 0 3px gray;
   text-align: center;
-  line-height: 2.8em;
+  line-height: 1.2em;
   font-weignt: bold;
+}
+
+.chips {
+  font-family: 'Romanesco', cursive;
+  font-size: 30px;
 }
 
 .chips:hover {
@@ -166,9 +174,11 @@ menu li:hover {
 #results {
   color: white;
   position: fixed;
-  left: 8em;
-  top: 4em;
-  font-size: 42pt;
+  left: 7.5em;
+  top: 3em;
+  font-size: 50pt;
+  font-family: 'Romanesco', cursive;
+  color: gold;
 }
 
 audio {
@@ -222,7 +232,7 @@ menu {
 #bal {
   position: absolute;
   top: 29.3em;
-  left: 34em;
+  left: 29em;
   font-size: 14pt;
   padding: 1em;
 }
@@ -238,11 +248,10 @@ menu {
 }
 
 #results {
-  color: white;
   position: fixed;
-  left: 4em;
+  left: 3em;
   top: 4em;
-  font-size: 42pt;
+  font-size: 50pt;
 }
 };
 

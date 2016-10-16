@@ -9,6 +9,7 @@ var playerMoney = 100;
 var moneyPool = 0;
 var splitMoneyPool = 0;
 var insurancePool = 0;
+flipChips();
 bets();
 viewMoney();
 // this.htmlE = $('<divx
@@ -155,6 +156,7 @@ function createDeck() {
 //Starting the game
 function startGame() {
   if(moneyPool >= 1) {
+    $('#results').empty();
     $('#dealAudio').get(0).play();
     deck = [];
     createDeck();
@@ -183,8 +185,6 @@ function startGame() {
     $('#stay').click(result);
     $('.chips').off();
     $('#deal').off();
-  } else if(playerMoney > 1 && moneyPool === 0) {
-    $('#results').hide().text('Place your bet!').fadeIn('slow').fadeOut(800);
   } else {
     $('#results').text('Not enough money...').fadeIn('slow').fadeOut(800);
   }
@@ -227,14 +227,15 @@ function result() {
       $('#results').text('You won!').fadeIn('slow').fadeOut(4000);
       playerMoney += (moneyPool * 2);
     }
+    $('#hit').off();
+    $('#stay').off();
+    $('#double').off();
     moneyPool = 0;
     insurancePool = 0;
     viewMoney();
     bets();
-    $('#hit').off();
-    $('#stay').off();
-    $('#double').off();
     $('#deal').click(startGame);
+    flipChips();
   }
 }
 
@@ -250,6 +251,7 @@ function resultSplit() {
       playerMoney += (moneyPool * 2 * 1.5) + (splitMoneyPool * 2 * 1.5);
     } else if (dealerCurrentscore === 21 && playerCurrentscore < 21 && playerSplitCurrentScore < 21) {
       $('#results').text('House Blackjack...').fadeIn('slow').fadeOut(4000);
+      playerMoney += insurancePool;
     } else if (dealerCurrentscore <= 21 && playerCurrentscore <= 21 & playerSplitCurrentScore <= 21 && playerCurrentscore > dealerCurrentscore && playerSplitCurrentScore > dealerCurrentscore) {
       $('#results').hide().text('Double win!').fadeIn('slow').fadeOut(4000);
       playerMoney += (moneyPool * 2) + (splitMoneyPool * 2);
@@ -325,8 +327,10 @@ function resultSplit() {
     }
     moneyPool = 0;
     splitMoneyPool = 0;
+    insurancePool = 0;
     viewMoney();
     bets();
+    flipChips();
     $('#hit').off();
     $('#stay').off();
     $('#double').off();
@@ -565,3 +569,8 @@ $('#hundchip').click(betOneHund);
 //Bet 500
 $('#fhundchip').click(betFhund);
 };
+
+//Hover effects
+function flipChips() { $('.chips').hover(function() {
+  $(this).toggleClass('animated infinite flip')
+})};
