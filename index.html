@@ -12,24 +12,19 @@
 </head>
 <body>
 <!-- User Menu -->
-    <menu>
-      <li id='deal'>Deal</li>
-      <li id='split'>Split</li>
-      <li id="double">Double</li>
-      <li id='hit'>Hit</li>
-      <li id='stay'>Stay</li>
-      <li id='insurance'>Insurance</li>
-    </menu>
+  <menu>
+    <li id='deal'>Deal</li>
+    <li id='split'>Split</li>
+    <li id="double">Double</li>
+    <li id='hit'>Hit</li>
+    <li id='stay'>Stay</li>
+    <li id='insurance'>Insurance</li>
+  </menu>
 
 <!-- Player/Dealer Hands -->
   <div id="player"></div>
   <div id="dealer"></div>
-  <div id="pSplit">
-<!--     <div class="card joker-red"></div>
-    <div class="card joker-red"></div>
-    <div class="card joker-red"></div>
-    <div class="card joker-red"></div> -->
-  </div>
+  <div id="pSplit"></div>
 
 <!-- Score Table -->
   <div id="scoreTable">Dealer's score:
@@ -46,32 +41,33 @@
     <br>
     <span id="sScore"></span>
   </div>
-  <!-- Money display -->
-  <div id='bal'>Balance:
-    <br>
-    <span id='pmoney'></span>
-    <br>
-      Current Bet:
-    <br>
-    <span id='pbet'></span>
-    </div>
 
-  <!-- Betting chips -->
-  <div class='chips' id="onechip">$1</div>
-  <div class='chips' id="fivechip">$5</div>
-  <div class='chips' id="tfivechip">$25</div>
-  <div class='chips' id="hundchip">$100</div>
-  <div class='chips' id="fhundchip">$500</div>
+<!-- Money display -->
+<div id='bal'>Balance:
+  <br>
+  <span id='pmoney'></span>
+  <br>
+    Current Bet:
+  <br>
+  <span id='pbet'></span>
+  </div>
 
-  <!-- Results window -->
+<!-- Betting chips -->
+<div class='chips' id="onechip">$1</div>
+<div class='chips' id="fivechip">$5</div>
+<div class='chips' id="tfivechip">$25</div>
+<div class='chips' id="hundchip">$100</div>
+<div class='chips' id="fhundchip">$500</div>
+
+<!-- Results window -->
 <div id='results' class='animated infinite pulse'>Place your bet!</div>
 
 <audio id='dealAudio' controls>
- <source src='cardAudio/cardPlace1.wav' type='audio/wav'>
+  <source src='assets/cardAudio/cardPlace1.wav' type='audio/wav'>
 </audio>
 
 <audio id='chipAudio' controls>
- <source src='cardAudio/chipsHandle4.wav' type='audio/wav'>
+  <source src='assets/cardAudio/chipsHandle4.wav' type='audio/wav'>
 </audio>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js"></script>

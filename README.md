@@ -25,7 +25,6 @@ implemented/improved to maximize user experience:
   * CSS modifications to allow compatibility with mobile devices
   * Responsiveness to various window sizes in browser
   * Incorporating selective icons for the user menu
-  * Adding audio effects for menu selection and card deals
   * Allowing users to subtract funds from the betting pool
 
 Public [gist](https://gist.github.com/tintran519/be5d3dfede9bae53459e2b0ed4a2399e)

@@ -12,7 +12,6 @@ var insurancePool = 0;
 flipChips();
 bets();
 viewMoney();
-// this.htmlE = $('<divx
 
 //TALLYING SCORE (add values in array at all times)
 //Player's score
@@ -339,12 +338,12 @@ function resultSplit() {
 
 //Player Ace Logic
 function aceCounter() {
-var numAce = 0;
-for(var i = 0; i < playerHand.length; i++) {
-if(playerHand[i].face === "A") {
-numAce += 1;
-}
-}
+  var numAce = 0;
+  for(var i = 0; i < playerHand.length; i++) {
+    if(playerHand[i].face === "A") {
+    numAce += 1;
+    }
+  }
 return numAce;
 }
 
@@ -456,6 +455,7 @@ function insurance() {
      $('#insurance').off();
   }
 }
+
 //Render display/////////////
 //PlayerHand
 function viewPlayerHand() {
@@ -492,6 +492,7 @@ $.each(playerSplitHand, function(index,value) {
   $('.newS').slideDown();
 }
 )};
+
 //Money Bets/////////////////
 function betOne() {
   if(playerMoney >= 1) {
@@ -548,6 +549,7 @@ function betFhund() {
   $('#results').text('Not enough money...').fadeIn('slow').fadeOut('slow');
   }
 }
+
 //Click Events////////
 //Deal click event
 $('#deal').click(startGame);
